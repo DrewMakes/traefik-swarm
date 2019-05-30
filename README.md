@@ -1,4 +1,4 @@
-# Project Title
+# Traefik on Docker Swarm
 
 Traefik deployed on Docker Swarm as a reverse proxy with SSL from Let's Encrypt.
 
@@ -52,7 +52,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Hat tip to
 
-Maxence Henneron had most up to date version and also works with SSL
+Maxence Henneron had most up to date version I could find, his also works with SSL
 https://dev.to/maxencehenneron/automatic-dns-and-ssl-management-with-traefik-8cc
 
 Jason Raimondi almost got SSL working for me, his github was a useful comparison.
