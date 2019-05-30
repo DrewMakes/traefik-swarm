@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  drewmakes:
+    image: drewmakes/drewmakes
+    networks:
+      - webgateway
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+      labels:
+        - traefik.port=80
+        - traefik.enable=true
+        - traefik.docker.network=webgateway
+        - traefik.backend=drewmakes
+        - traefik.frontend.rule=Host:drewmakes.com
+networks:
+  webgateway:
+    external: true

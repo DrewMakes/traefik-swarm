@@ -1,0 +1,30 @@
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[accessLog]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "drewmakes.com"
+watch = true
+exposedbydefault = false
+
+[acme]
+email = "hey@drewmakes.com "
+storage = "/etc/traefik/acme/acme.json"
+entryPoint = "https"
+acmeLogging = true
+onHostRule = true
+
+[acme.httpChallenge]
+entryPoint = "http"

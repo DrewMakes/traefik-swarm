@@ -1,0 +1,43 @@
+version: "3.5"
+services:
+  traefik:
+    image: traefik:1.7
+    command:
+      - "--api"
+      - "--loglevel=debug"
+      - "--docker"
+      - "--docker.swarmMode"
+      - "--docker.domain=drewmakes.com"
+      - "--docker.watch"
+      - "--configFile=/etc/traefik/traefik.toml"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/traefik.toml:/etc/traefik/traefik.toml
+      - ./traefik/acme.json:/etc/traefik/acme/acme.json
+    networks:
+      - webgateway
+      - traefik
+    ports:
+      - target: 80
+        published: 80
+      - target: 443
+        published: 443
+      - target: 8080
+        published: 8080
+        mode: host
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+networks:
+  webgateway:
+    driver: overlay
+    external: true
+  traefik:
+    driver: overlay
